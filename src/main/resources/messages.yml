@@ -1,0 +1,23 @@
+######### Accion MfB Notification Microservice Global Messages ############
+---
+appMessages:
+    user:
+        notexist: The request is from an unknown user {0}
+    webdata:
+        token:
+            expired: Error validating access token. Session has expired
+        nopost: No Post for {0} account
+    request:
+        processing: Your request is processing. Do not repeat without a check
+        hash:
+            failed: Bad request
+        sameid: A record with the Request ID {0} already exist
+        norole: You donot have permission to use this resource
+    customer:
+        noexist: No customer record found using the customer or mobile number {0}
+    account:
+        noprimary: Unable determine debit account for the transaction. Ensure primary account is set for the customer
+    success:
+        email: The email was sent successfully
+    email:
+        notsupplied: Recipient email invalid or not supplied

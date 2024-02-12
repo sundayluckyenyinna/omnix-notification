@@ -1,0 +1,23 @@
+####### Accion Microfinance Bank - Omnix Notification #########
+server:
+    port: 1013
+    
+spring:
+    application:
+        name: omnix-notification
+    cloud:
+        config:
+            uri: http://omnix-config:8888
+            name: config-server
+            
+eureka:
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+
+email:
+    host: smtp.zoho.com
+    port: 587
+    username: accionservicemgt@accionmfb.com
+    password: Management12345@
+    from: accionservicemgt@accionmfb.com
