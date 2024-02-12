@@ -29,6 +29,7 @@ public class ApiPaths {
     //I
     //L
     public static final String EMAIL_NOTIFICATION = "/email/notification";
+    public static final String EMAIL_NOTIFICATION_WITH_ATTACHMENT = "/email/attachment";
 
     public static final String EMAIL_NOTIFICATION_NO_ATTACHMENT = "/email/notification/no-attachment";
 

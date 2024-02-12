@@ -10,6 +10,7 @@ import com.accionmfb.omnix.notification.exception.ExceptionResponse;
 import com.accionmfb.omnix.notification.jwt.JwtTokenUtil;
 import com.accionmfb.omnix.notification.payload.*;
 import com.accionmfb.omnix.notification.service.EmailService;
+import com.accionmfb.omnix.notification.service.OmnixEmailService;
 import com.accionmfb.omnix.notification.service.SMSService;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -50,6 +51,9 @@ public class NotificationController {
     Gson gson;
     @Autowired
     JwtTokenUtil jwtToken;
+
+    @Autowired
+    private OmnixEmailService omnixEmailService;
 
     @PostMapping(value = SMS_NOTIFICATION, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "SMS Notification")
@@ -110,6 +114,11 @@ public class NotificationController {
             String exceptionJson = gson.toJson(exResponse);
             return new ResponseEntity<>(exceptionJson, HttpStatus.OK);
         }
+    }
+
+    @PostMapping(value = EMAIL_NOTIFICATION_WITH_ATTACHMENT)
+    public ResponseEntity<EmailWithAttachmentResponsePayload> processEmailWithAttachment(@RequestBody EmailWithAttachmentRequestPayload requestPayload){
+        return ResponseEntity.ok(omnixEmailService.processEmailWithAttachmentLinks(requestPayload));
     }
 
     @CrossOrigin({"http://10.10.0.32:8080"})

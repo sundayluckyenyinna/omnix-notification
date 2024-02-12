@@ -16,8 +16,8 @@ eureka:
         fetchRegistry: true
 
 email:
-    host: smtp.zoho.com
+    host: smtp.zeptomail.com
     port: 587
-    username: accionservicemgt@accionmfb.com
-    password: Management12345@
+    username: emailappsmtp.7eca4151c19b26a7
+    password: 21sV6s4cY1Ym
     from: accionservicemgt@accionmfb.com
