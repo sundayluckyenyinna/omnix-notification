@@ -80,7 +80,7 @@ public class Utils {
         for(Map.Entry<String, Object> entry : contextData.entrySet()){
             String key = entry.getKey();
             String replaceable = "\\{".concat(key).concat("}");
-            String replacement = String.valueOf(entry.getValue());
+            String replacement = entry.getValue() + Strings.EMPTY;
             result = result.replaceAll(replaceable, replacement);
         }
         return result;
@@ -94,7 +94,7 @@ public class Utils {
         String name = attachment.getName().endsWith(PDF_EXTENSION) ? attachment.getName() : attachment.getName().concat(PDF_EXTENSION);
         EmailAttachment emailAttachment = new EmailAttachment();
         emailAttachment.setDescription(attachment.getDescription());
-        emailAttachment.setName(attachment.getName());
+        emailAttachment.setName(name);
         emailAttachment.setDisposition(EmailAttachment.ATTACHMENT);
         emailAttachment.setPath(file.getAbsolutePath());
         return emailAttachment;
