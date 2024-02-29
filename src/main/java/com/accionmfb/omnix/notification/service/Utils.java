@@ -104,13 +104,11 @@ public class Utils {
         return Objects.isNull(value) ? defaultValue : value;
     }
 
-    public static String cleanToken(String token){
-        return token.replace(TOKEN_PREFIX, Strings.EMPTY).trim();
+    public static boolean isNullOrEmpty(Object object){
+        return Objects.isNull(object) || String.valueOf(object).isEmpty();
     }
 
-    public static void main(String[] args) {
-        Map<String, Object> contextData = new LinkedHashMap<>();
-        contextData.put("customer_name", "Lucky");
-        System.out.println(downLoadContextualHtmlLinkAsPdf("http://10.10.0.32:8080/website/css/schoolfees_alert/offer-alert-pdf.html", contextData,"test.pdf"));
+    public static boolean nonNullOrEmpty(Object object){
+        return !isNullOrEmpty(object);
     }
 }

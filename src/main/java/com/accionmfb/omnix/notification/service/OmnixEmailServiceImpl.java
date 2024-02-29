@@ -37,13 +37,14 @@ public class OmnixEmailServiceImpl implements OmnixEmailService{
 
 
     @Override
-    public EmailWithAttachmentResponsePayload processEmailWithAttachmentLinks(EmailWithAttachmentRequestPayload requestPayload){
+    public EmailWithAttachmentResponsePayload  processEmailWithAttachmentLinks(EmailWithAttachmentRequestPayload requestPayload){
         try {
-            MultiPartEmail email = getConfiguredHtmlMultipartEmail();
+            HtmlEmail email = getConfiguredHtmlMultipartEmail();
             List<Attachment> attachments = requestPayload.getAttachmentLinks();
             List<EmailAttachment> emailAttachments = attachments
                     .stream()
-                    .map(Utils::convertAttachmentToEmailAttachment).collect(Collectors.toList());
+                    .map(Utils::convertAttachmentToEmailAttachment)
+                    .collect(Collectors.toList());
             String from = Utils.returnOrDefault(requestPayload.getFrom(), mailFrom);
             requestPayload.getRecipients().forEach(recipient -> {
                 try {
@@ -53,6 +54,9 @@ public class OmnixEmailServiceImpl implements OmnixEmailService{
             email.setFrom(from);
             email.setSubject(requestPayload.getSubject());
             email.setMsg(requestPayload.getMessage());
+            if(Utils.nonNullOrEmpty(requestPayload.getHtmlMessage())){
+                email.setHtmlMsg(requestPayload.getHtmlMessage());
+            }
             emailAttachments.forEach(emailAttachment -> {
                 try {
                     email.attach(emailAttachment);
@@ -86,15 +90,14 @@ public class OmnixEmailServiceImpl implements OmnixEmailService{
     }
 
 
-
     private SimpleEmail getConfiguredSimpleEmail() throws EmailException {
         SimpleEmail email = new SimpleEmail();
         configureEmailWithProperties(email);
         return email;
     }
 
-    private MultiPartEmail getConfiguredHtmlMultipartEmail() throws EmailException {
-        MultiPartEmail email = new HtmlEmail();
+    private HtmlEmail getConfiguredHtmlMultipartEmail() throws EmailException {
+        HtmlEmail email = new HtmlEmail();
         configureEmailWithProperties(email);
         return email;
     }

@@ -10,6 +10,7 @@ public class EmailWithAttachmentRequestPayload {
     private List<Attachment> attachmentLinks;
     private List<String> recipients;
     private String message;
+    private String htmlMessage;
     private String subject;
     private String from;
 }

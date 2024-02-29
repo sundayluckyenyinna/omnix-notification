@@ -12,6 +12,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,35 +38,34 @@ public class VansoSMS {
         HttpResponse<String> response = submitToVanso(mobile, message);
 
 
+        if(Objects.nonNull(response)) {
+            String sResponse = response.getBody();
 
-        String sResponse = response.getBody();
+            System.out.println(sResponse);
 
-        System.out.println(sResponse);
-
-        System.out.println(response.getStatus());
+            System.out.println(response.getStatus());
 
 
+            SmsResponse oSmsResponse = new SmsResponse();
 
-        SmsResponse oSmsResponse = new SmsResponse();
+            if (response.getStatus() == 200) {
 
-        if (response.getStatus() == 200) {
+                oSmsResponse = gson.fromJson(sResponse, SmsResponse.class);
 
-            oSmsResponse = gson.fromJson(sResponse, SmsResponse.class);
+                System.out.println(oSmsResponse.getTicketId());
 
-            System.out.println(oSmsResponse.getTicketId());
+                System.out.println(oSmsResponse.getStatus());
 
-            System.out.println(oSmsResponse.getStatus());
+                System.out.println(oSmsResponse.getErrorCode());
 
-            System.out.println(oSmsResponse.getErrorCode());
+                System.out.println(oSmsResponse.getErrorMessage());
 
-            System.out.println(oSmsResponse.getErrorMessage());
+                System.out.println(oSmsResponse.getDestination());
 
-            System.out.println(oSmsResponse.getDestination());
-
+            }
+            return oSmsResponse;
         }
-
-        return oSmsResponse;
-
+        return null;
     }
 
 
